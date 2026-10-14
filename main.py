@@ -118,7 +118,8 @@ class GameOverView(discord.ui.View):
     @discord.ui.button(label='Cut ur losses!', style=discord.ButtonStyle.blurple)
     async def nah(self, interaction: discord.Interaction, button: discord.ui.Button):
         try:
-            embed = em_gen(title='Main Screen', color=discord.Color.green(), fields=('fuckyou', 'placeholder', True))
+            embed = em_gen(title='Main Screen', color=discord.Color.green(),
+                           fields=('SELECT YOUR GAME', '♣️♣️♣️♣️♣️', True))
             await interaction.response.send_message(embed=embed, view=GamesView(), ephemeral=True)
         except discord.Forbidden as e:
             print(e)
@@ -186,7 +187,7 @@ async def on_ready():
 async def mainscreen(interaction: discord.Interaction):
     """serves you the main screen of the bot pending your choice of game """
     try:
-        embed = em_gen(title='Main Screen', color=discord.Color.green(), fields=('fuckyou', 'placeholder', True))
+        embed = em_gen(title='Main Screen', color=discord.Color.green(), fields=('SELECT YOUR GAME', '♣️♣️♣️♣️♣️', True))
         await interaction.response.send_message(embed=embed, view=GamesView(), ephemeral=True)
     except discord.Forbidden as e:
         print(e)

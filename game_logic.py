@@ -1,6 +1,6 @@
 import random
 
-class BlackJack():
+class BlackJack:
 
     def __init__(self):
         self.player_input = None
@@ -66,7 +66,7 @@ class BlackJack():
         if self.player_input:
             self.player_hand.append(deck.pop())
 
-        if sum(self.dealer_hand) < 17:
+        if self.hand_sum(self.dealer_hand) < 17:
             self.dealer_hand.append(deck.pop())
 
 
@@ -89,7 +89,7 @@ class BlackJack():
 
         if player_score > 21:
             self.game_con = 'lose'
-        elif player_score < 21 and dealer_score < 17:
+        elif player_score < 21 and not self.player_input:
             self.game_con = 'undetermined'
         elif player_score < dealer_score <= 21:
             self.game_con = 'lose'
@@ -107,8 +107,9 @@ class BlackJack():
         1 sum vs the other this additional logic is needed
         """
         score = sum(hand)
-        if 1 in hand and score + 10 <= 21:
-            score += 10
+        print(score)
+        if 1 in hand and score + 11 <= 21:
+            score += 11
         return score
 
     def set_game_state(self):
