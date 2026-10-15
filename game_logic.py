@@ -66,7 +66,7 @@ class BlackJack:
         if self.player_input:
             self.player_hand.append(deck.pop())
 
-        if self.hand_sum(self.dealer_hand) < 17:
+        if self.hand_sum(self.dealer_hand) < 17 or self.hand_sum(self.dealer_hand) < 21 and self.hand_sum(self.dealer_hand) < self.hand_sum(self.player_hand):
             self.dealer_hand.append(deck.pop())
 
 
@@ -89,14 +89,16 @@ class BlackJack:
 
         if player_score > 21:
             self.game_con = 'lose'
-        elif player_score < 21 and not self.player_input:
+        elif self.player_input or dealer_score < 17:
             self.game_con = 'undetermined'
-        elif player_score < dealer_score <= 21:
-            self.game_con = 'lose'
-        elif player_score == 21 and dealer_score == 21:
-            self.game_con = 'draw'
-        else:
+        elif dealer_score > 21:
             self.game_con = 'win'
+        elif player_score > dealer_score:
+            self.game_con = 'win'
+        elif player_score < dealer_score:
+            self.game_con = 'lose'
+        else:
+            self.game_con = 'draw'
 
     def hand_sum(self, hand):
         """calculates sum prevents repeat code from having to refer
@@ -107,9 +109,8 @@ class BlackJack:
         1 sum vs the other this additional logic is needed
         """
         score = sum(hand)
-        print(score)
-        if 1 in hand and score + 11 <= 21:
-            score += 11
+        if 1 in hand and score + 10 <= 21:
+            score += 10
         return score
 
     def set_game_state(self):

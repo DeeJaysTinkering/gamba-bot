@@ -81,7 +81,8 @@ class BlackJackView(discord.ui.View):
         try:
             blackjack = self.blackjack
             while blackjack.game_state != "end":
-                output = blackjack.turn(0)
+                blackjack.turn(0)
+            output = blackjack.game_output
             dealer_hand = output['dealer']
             player_hand = output['player']
             await interaction.response.defer()
